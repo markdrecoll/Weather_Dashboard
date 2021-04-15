@@ -1,5 +1,5 @@
 // get elements from html
-var weatherDetailsTableEl = document.getElementById('weatherDetailsTable');
+var weatherDetailsDivEl = document.getElementById('weatherDetailsDiv');
 var futureDayOneWeatherEl = document.getElementById('futureDayOneWeather');
 var fiveDayForecastCardsEl = document.getElementById('fiveDayForecastCards');
 
@@ -19,22 +19,21 @@ function getApi(cityChoice){
             var weatherIconVariable = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png";
 
             // create a table row to display elements
-            var tableRow = document.createElement('tr');
+            var pToBeAdded = document.createElement('p');
             
             // call the getUV function by passing in city lat/long
             getUV(data.city.coord.lat, data.city.coord.lon);
 
             // display remaining data
-            tableRow.innerHTML = `<td> ${data.city.name} </td>
-            <td>${data.list[0].dt_txt}</td>
-            <td><img src="${weatherIconVariable}" alt="Weather Icon"></img></td>
-            <td> ${data.list[0].main.temp} </td>
-            <td>${data.list[0].main.humidity}</td>
-            <td>${data.list[0].wind.speed}</td>
-            <td id="uvIndexTableElement"></td>`;
+            pToBeAdded.innerHTML = `<p id="UVparagraph"> ${data.city.name} ${data.list[0].dt_txt}
+            <img src="${weatherIconVariable}" alt="Weather Icon"></img><br>
+            Temperature: ${data.list[0].main.temp} F<br>
+            Humidity: ${data.list[0].main.humidity}%<br>
+            Wind Speed: ${data.list[0].wind.speed} MPH<br>
+            <p></p>`;
             
             // append it to the html
-            weatherDetailsTable.append(tableRow);
+            weatherDetailsDiv.append(pToBeAdded);
 
             // call the display function to show multiple days of weather
             displayFiveDayWeather(data.list);
@@ -43,6 +42,7 @@ function getApi(cityChoice){
 
 function displayFiveDayWeather(dataListItems){
 
+    // console log to see what data is attached
     console.log(dataListItems);
 
     // create an array to hold days for weather
@@ -60,8 +60,7 @@ function displayFiveDayWeather(dataListItems){
 
     // for the for loop before, try passing in this for the date instead and figure out formatting
     // ${new Date(dataListItems[i].dt)}
-
-    
+  
 
     // create five cards to display weather each day
     for(var i=0; i<cleanFiveDays.length; i++){
@@ -77,8 +76,9 @@ function displayFiveDayWeather(dataListItems){
           Temp: ${dataListItems[i].main.temp} F<br
           >Humidity: ${dataListItems[i].main.humidity}%</p>
         </div>
-      </div>`
+      </div>`;
 
+    //   write the data to the page, += so it adds each time and doesn't erase itself
       fiveDayForecastCardsEl.innerHTML += card;
     }
 }
@@ -86,8 +86,7 @@ function displayFiveDayWeather(dataListItems){
 // takes in what city the user inputted
 $(document).on('click', '#userInputCityButton', function(){
     var userInputCityEl = document.getElementById('userInputCity').value;
-    console.log('userInputCityEl');
-    getApi(userInputCityEl)
+    getApi(userInputCityEl);
 })
 
 // this function takes a latitude and longitude and puts it into an API URL in order to obtain the UV index
@@ -101,8 +100,18 @@ function getUV(lat, lon){
         .then(function (data) {
             console.log(data);
 
-            var tableColumn = document.getElementById('uvIndexTableElement');
+            // attaches a variable to the UVparagraph element
+            var UVparagraphEl = document.getElementById('UVparagraph');
 
-            tableColumn.innerHTML = `${data.value}`;
+            // take in the uv data and display a background color that represents the severity of sun exposure
+            if(data.value<3){
+                UVparagraphEl.append(`UV Index: <span class="UVfavorable">${data.value}</span>`);
+
+            }else if(data.value>2 && data.value<7){
+                UVparagraphEl.append(`UV Index: <span class="UVmoderate">${data.value}</span>`);
+
+            }else{
+                UVparagraphEl.append(`UV Index: <span class="UVsevere">${data.value}</span>`);
+            }            
         })    
 }

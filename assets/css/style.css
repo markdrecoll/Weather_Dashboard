@@ -1,3 +1,15 @@
 #fiveDayForecastCards{
     display:flex;
 }
+
+.UVfavorable{
+    background-color: green;
+}
+
+.UVmoderate{
+    background-color: yellow;
+}
+
+.UVsevere{
+    background-color: red;
+}
