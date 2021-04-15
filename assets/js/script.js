@@ -105,13 +105,13 @@ function getUV(lat, lon){
 
             // take in the uv data and display a background color that represents the severity of sun exposure
             if(data.value<3){
-                UVparagraphEl.append(`UV Index: <span class="UVfavorable">${data.value}</span>`);
+                UVparagraphEl.innerHTML += (`UV Index: <span background-color="black" class="UVfavorable">${data.value}</span>`);
 
             }else if(data.value>2 && data.value<7){
-                UVparagraphEl.append(`UV Index: <span class="UVmoderate">${data.value}</span>`);
+                UVparagraphEl.innerHTML += (`UV Index: <span background-color="black" class="UVmoderate">${data.value}</span>`);
 
             }else{
-                UVparagraphEl.append(`UV Index: <span class="UVsevere">${data.value}</span>`);
+                UVparagraphEl.innerHTML += (`UV Index: <span background-color="black" class="UVsevere">${data.value}</span>`);
             }            
         })    
 }
