@@ -6,4 +6,8 @@ Mark Drecoll
 
 Description: This is an application that pulls data from an API at open weather. It displays the five day forecast and current day's forecast. The user can select a city and obtain the weather there. Recent searches by the user will be saved, so that they can check weather in those particular cities easily.
 
+URL: https://markdrecoll.github.io/Weather_Dashboard/
+
+Github: https://github.com/markdrecoll/Weather_Dashboard
+
 Frameworks Used: HTML/CSS/Javascript/jQuery/Materialize
