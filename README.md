@@ -9,5 +9,3 @@ Description: This is an application that pulls data from an API at open weather.
 URL: https://markdrecoll.github.io/Weather_Dashboard/
 
 Github: https://github.com/markdrecoll/Weather_Dashboard
-
-Frameworks Used: HTML/CSS/Javascript/jQuery/Materialize
