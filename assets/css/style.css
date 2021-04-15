@@ -13,3 +13,9 @@
 .UVsevere{
     background-color: red;
 }
+
+.jumbotron {
+    background-color:darkgrey;
+    text-align:center;
+    color:white;
+}

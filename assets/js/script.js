@@ -1,8 +1,9 @@
-// get elements from html
+// initialie variables and get elements from html
 var weatherDetailsDivEl = document.getElementById('weatherDetailsDiv');
 var futureDayOneWeatherEl = document.getElementById('futureDayOneWeather');
 var fiveDayForecastCardsEl = document.getElementById('fiveDayForecastCards');
 var previousCitiesDisplayEl = document.getElementById('previousCitiesDisplay');
+var searchHistory = JSON.parse(localStorage.getItem('history')) || [];
 
 
 // this fetches api data based on what city the user wrote in
@@ -43,6 +44,36 @@ function getApi(cityChoice) {
         })
 }
 
+// this function takes a latitude and longitude and puts it into an API URL in order to obtain the UV index
+// original API URL: http://api.openweathermap.org/data/2.5/uvi?lat={lat}&lon={lon}&appid={API key}
+function getUV(lat, lon) {
+    var requestUrl = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + lat + '&lon=' + lon + '&appid=952a31c8c46b04b367ae5571aed08c79';
+    fetch(requestUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+
+            // attaches a variable to the UVparagraph element
+            var UVparagraphEl = document.getElementById('UVparagraph');
+
+            // take in the uv data and display a background color that represents the severity of sun exposure
+            if (data.value < 3) {
+                UVparagraphEl.innerHTML += (
+                    `UV Index: <span background-color="black" class="UVfavorable">${data.value}</span>`);
+
+            } else if (data.value > 2 && data.value < 7) {
+                UVparagraphEl.innerHTML += (
+                    `UV Index: <span background-color="black" class="UVmoderate">${data.value}</span>`);
+
+            } else {
+                UVparagraphEl.innerHTML += (
+                    `UV Index: <span background-color="black" class="UVsevere">${data.value}</span>`);
+            }
+        })
+}
+
 function displayFiveDayWeather(dataListItems) {
 
     // console log to see what data is attached
@@ -61,19 +92,15 @@ function displayFiveDayWeather(dataListItems) {
     // console log just to see whats happening
     console.log(cleanFiveDays);
 
-    // for the for loop before, try passing in this for the date instead and figure out formatting
-    // ${new Date(dataListItems[i].dt)}
-
-
     // empty the five day cards for new input
     fiveDayForecastCardsEl.innerHTML = "";
-
 
     // create five cards to display weather each day
     for (var i = 0; i < cleanFiveDays.length; i++) {
 
         // concatenate the image file name with the url for image thumbnails
-        var weatherIconVariable = "http://openweathermap.org/img/w/" + cleanFiveDays[i].weather[0].icon + ".png";
+        var weatherIconVariable = "http://openweathermap.org/img/w/" +
+        cleanFiveDays[i].weather[0].icon + ".png";
 
         // create the cards
         var card = `<div class="card text-white bg-primary mb-3" style="width: 18rem;">
@@ -90,15 +117,36 @@ function displayFiveDayWeather(dataListItems) {
     }
 }
 
+function renderHistory() {
+
+    // clear out the previous city so it doesn't display it twice
+    previousCitiesDisplayEl.innerHTML = "";
+
+    // run a for loop and create a button with a previous searched city for every one the user did
+    for (var i = 0; i < searchHistory.length; i++) {
+        previousCitiesDisplayEl.innerHTML += `<button type="button"
+        class="btn btn-primary btn-lg btn-block previousCitySelections">
+        ${searchHistory[i]}</button><br>`;
+    }
+}
+
 // takes in what city the user inputted
 $(document).on('click', '#userInputCityButton', function () {
 
     // get user input for city selection then run the API function
     var userInputCityEl = document.getElementById('userInputCity').value;
+
+    // add user input city to an array of cities they chose
+    searchHistory.push(userInputCityEl);
+
+    // save the cities chosen to local storage
+    localStorage.setItem('history', JSON.stringify(searchHistory));
+    
+    // call the API get weather data based on what user typed
     getApi(userInputCityEl);
 
-    // when a user searches for a city, those are listed and with a class to control them
-    previousCitiesDisplayEl.innerHTML += `<p class="previousCitySelections">${userInputCityEl}</p>`;
+    // function to render the buttons
+    renderHistory()
 })
 
 // call the weather function when previous cities are clicked
@@ -106,30 +154,5 @@ $(document).on('click', '.previousCitySelections', function () {
     getApi($(this).text());
 })
 
-
-// this function takes a latitude and longitude and puts it into an API URL in order to obtain the UV index
-// original API URL: http://api.openweathermap.org/data/2.5/uvi?lat={lat}&lon={lon}&appid={API key}
-function getUV(lat, lon) {
-    var requestUrl = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + lat + '&lon=' + lon + '&appid=952a31c8c46b04b367ae5571aed08c79';
-    fetch(requestUrl)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-
-            // attaches a variable to the UVparagraph element
-            var UVparagraphEl = document.getElementById('UVparagraph');
-
-            // take in the uv data and display a background color that represents the severity of sun exposure
-            if (data.value < 3) {
-                UVparagraphEl.innerHTML += (`UV Index: <span background-color="black" class="UVfavorable">${data.value}</span>`);
-
-            } else if (data.value > 2 && data.value < 7) {
-                UVparagraphEl.innerHTML += (`UV Index: <span background-color="black" class="UVmoderate">${data.value}</span>`);
-
-            } else {
-                UVparagraphEl.innerHTML += (`UV Index: <span background-color="black" class="UVsevere">${data.value}</span>`);
-            }
-        })
-}
+// function to render the buttons at start of the program, to show history
+renderHistory();
