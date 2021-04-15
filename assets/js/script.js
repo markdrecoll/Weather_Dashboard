@@ -29,8 +29,7 @@ function getApi(cityChoice){
             <img src="${weatherIconVariable}" alt="Weather Icon"></img><br>
             Temperature: ${data.list[0].main.temp} F<br>
             Humidity: ${data.list[0].main.humidity}%<br>
-            Wind Speed: ${data.list[0].wind.speed} MPH<br>
-            <p></p>`;
+            Wind Speed: ${data.list[0].wind.speed} MPH<br>`;
             
             // append it to the html
             weatherDetailsDiv.append(pToBeAdded);
