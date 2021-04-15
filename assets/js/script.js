@@ -1,3 +1,6 @@
+// Mark Drecoll
+// 4/13/21
+
 // initialie variables and get elements from html
 var weatherDetailsDivEl = document.getElementById('weatherDetailsDiv');
 var futureDayOneWeatherEl = document.getElementById('futureDayOneWeather');
@@ -100,7 +103,7 @@ function displayFiveDayWeather(dataListItems) {
 
         // concatenate the image file name with the url for image thumbnails
         var weatherIconVariable = "http://openweathermap.org/img/w/" +
-        cleanFiveDays[i].weather[0].icon + ".png";
+            cleanFiveDays[i].weather[0].icon + ".png";
 
         // create the cards
         var card = `<div class="card text-white bg-primary mb-3" style="width: 18rem;">
@@ -141,7 +144,7 @@ $(document).on('click', '#userInputCityButton', function () {
 
     // save the cities chosen to local storage
     localStorage.setItem('history', JSON.stringify(searchHistory));
-    
+
     // call the API get weather data based on what user typed
     getApi(userInputCityEl);
 
