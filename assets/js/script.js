@@ -72,7 +72,7 @@ function displayFiveDayWeather(dataListItems){
         var card = `<div class="card" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">${dataListItems[i].dt_txt.split(" ")[0]}</h5>
-          <p class="card-text"><img alt='cardweatherfunctionsrc='${weatherIconVariable}
+          <p class="card-text"><img alt='cardweatherdetails' src='${weatherIconVariable}'></img><br>
           Temp: ${dataListItems[i].main.temp} F<br
           >Humidity: ${dataListItems[i].main.humidity}%</p>
         </div>
