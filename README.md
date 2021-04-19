@@ -1,6 +1,6 @@
 ## Weather_Dashboard
 
-![weather_screen](https://user-images.githubusercontent.com/77694281/115305244-a4792300-a12b-11eb-9721-96622896f4d0.PNG)
+![weather_app_screen](https://user-images.githubusercontent.com/77694281/115305346-c70b3c00-a12b-11eb-9898-fe2629567be4.PNG)
 
 Live Demo: https://markdrecoll.github.io/Weather_Dashboard/
 
