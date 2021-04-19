@@ -1,5 +1,7 @@
 ## Weather_Dashboard
 
+![weather_screen](https://user-images.githubusercontent.com/77694281/115305170-8dd2cc00-a12b-11eb-8519-963e0747bdd0.PNG)
+
 Live Demo: https://markdrecoll.github.io/Weather_Dashboard/
 
 Mark Drecoll
