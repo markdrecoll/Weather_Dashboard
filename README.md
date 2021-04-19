@@ -1,4 +1,4 @@
-## Weather_Dashboard
+## Weather Dashboard
 
 ![weather_app_screen](https://user-images.githubusercontent.com/77694281/115305346-c70b3c00-a12b-11eb-9898-fe2629567be4.PNG)
 
