@@ -16,4 +16,4 @@
   mark@markdrecoll.com  
   
   ## Screenshot
-  <img src="https://user-images.githubusercontent.com/77694281/125536070-c1503fbd-890c-4c07-94b6-9ad31d649e1c.pn" width="300px" height="300px">
+  <img src="https://user-images.githubusercontent.com/77694281/125536119-c590b65f-886c-43e7-a01e-ff4002ca7e2a.png" width="300px" height="300px">
